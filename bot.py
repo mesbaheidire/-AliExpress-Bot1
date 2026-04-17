@@ -223,3 +223,40 @@ async def main():
 if __name__ == '__main__':
     import asyncio
     asyncio.run(main())
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import Application, CommandHandler, MessageHandler, ContextTypes, filters
+from dotenv import load_dotenv
+import os
+import json
+
+load_dotenv()
+
+API_ID = os.getenv('API_ID')
+API_HASH = os.getenv('API_HASH')
+BOT_TOKEN = os.getenv('BOT_TOKEN')
+CHANNEL_ID = os.getenv('CHANNEL_ID')
+AFFILIATE_LINK = os.getenv('AFFILIATE_LINK')
+
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("🎉 Welcome to AliExpress Bot!\nUse /help for commands")
+
+async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    help_text = """
+📋 **Available Commands:**
+/start - Start bot
+/add_product - Add new product
+/list_products - View products
+/publish - Publish to channel
+/add_discount - Create discount
+/stats - View statistics
+    """
+    await update.message.reply_text(help_text)
+
+def main():
+    app = Application.builder().token(BOT_TOKEN).build()
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("help", help_command))
+    app.run_polling()
+
+if __name__ == '__main__':
+    main()
