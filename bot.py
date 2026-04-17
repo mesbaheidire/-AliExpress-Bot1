@@ -47,11 +47,13 @@ This bot helps you manage and publish AliExpress products with affiliate links.
 /stats - View bot statistics
 /settings - Configure bot settings
     """
-    
-
-def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    welcome_text = "قائمة أوامر البوت المتاحة"
     await update.message.reply_text(welcome_text, parse_mode='Markdown')
-    """Handle /help command"""
+
+
+    
+    
     
 📋 **Bot Commands Help**
 
